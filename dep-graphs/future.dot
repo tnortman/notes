@@ -1,0 +1,60 @@
+digraph G {
+      rankdir="LR"
+
+
+
+    "GuestApp" -> { "hrpos-models" "shared" }
+    "Kiosk" -> { "hrpos-models" "shared" }
+    "CustomerDisplay" -> { "hrpos-models" "shared" }
+    "online_ordering" -> { "hrpos-models" "shared" }
+
+    "pay" -> "hrpos-models"
+    "pay" -> "shared"
+
+    "shared" -> "hrpos-models"
+
+    "consumer-api" -> "hrpos-models"
+    "consumer-api" -> "hrpos-util"
+    
+    "online-order-api" -> "hrpos-models"
+    "online-order-api" -> "hrpos-util"
+
+    "pay-api" -> "hrpos-models"
+    "pay-api" -> "hrpos-util"
+
+    "mb-ops" -> "hrpos-util"
+    "mb-ops" -> "hrpos-models"
+    
+    "mb-public-api" -> "hrpos-models"
+    "mb-public-api" -> "hrpos-util"
+    
+    "central-api" -> "hrpos-util"
+
+    "hrpos-util"
+
+    "central-api-broker"
+
+    subgraph cluster_apis {
+        label="BackEnd"
+        rank="same"
+        "central-api"
+        "mb-public-api"
+        "pay-api"
+        "consumer-api"
+        "online-order-api"
+        "mb-ops"
+        "central-api-broker"
+    }
+
+    subgraph cluster_apps {
+        label="FrontEnd"
+        rank="same"
+        "GuestApp"
+        "Kiosk"
+        "CustomerDisplay"
+        "online_ordering"
+        "pay"
+        "shared"
+
+    }
+}
