@@ -1,0 +1,37 @@
+digraph G {
+    "GuestApp" -> "mb-lambda-shared"
+    "GuestApp" -> "shared"
+    
+    "Kiosk" -> "mb-lambda-shared"
+    "Kiosk" -> "shared"
+
+    "CustomerDisplay" -> "mb-lambda-shared"
+    "CustomerDisplay" -> "shared"
+
+    "online_ordering" -> "mb-lambda-shared"
+    "online_ordering" -> "shared"
+    
+    "pay" -> "mb-lambda-shared"
+    "pay" -> "shared"
+
+    "shared" -> "mb-lambda-shared"
+
+    "consumer-api" -> "mb-lambda-shared"
+    "consumer-api" -> "online-order-api"
+    
+    "online-order-api" -> "mb-lambda-shared"
+
+    "pay-api" -> "mb-lambda-shared"
+    "pay-api" -> "mb-public-api"
+
+    "mb-ops" -> "mb-public-api"
+    
+    "mb-public-api" -> "mb-lambda-shared"
+    "mb-public-api" -> "consumer-api"
+    "mb-public-api" -> "models"
+    
+    "central-api" -> "mb-public-api"
+    
+    "central-api-broker"
+    
+}
