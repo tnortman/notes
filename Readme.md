@@ -11,6 +11,7 @@ Allow time to restructure code architecture and dockerize.
 ## Steps
 
 1. Shared Packages \/ Poly Repos
+    - Split serverless into FrontEnd, BackEnd, and Utils Repos
     - Move common functionality into new repos: 
         - `hrpos-models`, `hrpos-utils`
 2. Dockerize applications
