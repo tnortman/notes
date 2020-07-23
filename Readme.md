@@ -27,7 +27,7 @@ Allow time to restructure code architecture and dockerize.
 ![ScreenShot](./dep-graphs/current.png)
 
 ## Proposed Structure
-![ScreenShot](./dep-graphs/future.png)
+![ScreenShot](./dep-graphs/proposed.png)
 
 ## Shiz works, why change?
 - Looking at Current Structure, image a scenario in which changes are made to `online-order-api`. This has the potential to break everything upstream, including `consumer-api`, `mb-public-api`, `mb-ops`, `pay-api`, `central-api`
