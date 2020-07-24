@@ -15,5 +15,9 @@ House AWS, low level helpers
         └── sftp
         └── pipeline
         └── codebuild
+        └── dyanmo
+        └── firehose
+        └── redis
     └── http
+    └── twilio
 ```
