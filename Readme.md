@@ -14,11 +14,11 @@ Allow time to restructure code architecture and dockerize.
     - Split serverless into FrontEnd, BackEnd, and Utils Repos
     - Move common functionality into new repos: 
         - `hrpos-models`
-            - Models & Constants
+            - Houses POS models & Constants
         - `hrpos-utils`
-            - AWS Utils, Low level helpers
+            - Houses AWS logic (db, s3, redis) & generic utils
         - `hrpos-lib`
-            - shared lib functionality
+            - Houses shared lib functionality
 2. Dockerize applications
     - Ease of local developemnt
     - Improved build process speed & reliability
