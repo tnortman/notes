@@ -1,32 +1,20 @@
 digraph G {
-      rankdir="LR"
-
-
+    rankdir="LR"
 
     "GuestApp" -> { "hrpos-models" "shared" }
     "Kiosk" -> { "hrpos-models" "shared" }
     "CustomerDisplay" -> { "hrpos-models" "shared" }
     "online_ordering" -> { "hrpos-models" "shared" }
 
-    "pay" -> "hrpos-models"
-    "pay" -> "shared"
+    "pay" -> { "hrpos-models" "shared" }
 
     "shared" -> "hrpos-models"
 
-    "consumer-api" -> "hrpos-models"
-    "consumer-api" -> "hrpos-util"
-    
-    "online-order-api" -> "hrpos-models"
-    "online-order-api" -> "hrpos-util"
-
-    "pay-api" -> "hrpos-models"
-    "pay-api" -> "hrpos-util"
-
-    "mb-ops" -> "hrpos-util"
-    "mb-ops" -> "hrpos-models"
-    
-    "mb-public-api" -> "hrpos-models"
-    "mb-public-api" -> "hrpos-util"
+    "consumer-api" -> { "hrpos-models" "hrpos-util" }
+    "online-order-api" -> { "hrpos-models" "hrpos-util" }
+    "pay-api" -> { "hrpos-models" "hrpos-util" }
+    "mb-ops" -> { "hrpos-models" "hrpos-util" }
+    "mb-public-api" -> { "hrpos-models" "hrpos-util" }
     
     "central-api" -> "hrpos-util"
 
@@ -55,6 +43,5 @@ digraph G {
         "online_ordering"
         "pay"
         "shared"
-
     }
 }

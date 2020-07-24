@@ -13,7 +13,12 @@ Allow time to restructure code architecture and dockerize.
 1. Shared Packages \/ Poly Repos
     - Split serverless into FrontEnd, BackEnd, and Utils Repos
     - Move common functionality into new repos: 
-        - `hrpos-models`, `hrpos-utils`
+        - `hrpos-models`
+            - Models & Constants
+        - `hrpos-utils`
+            - AWS Utils, Low level helpers
+        - `hrpos-lib`
+            - shared lib functionality
 2. Dockerize applications
     - Ease of local developemnt
     - Improved build process speed & reliability
