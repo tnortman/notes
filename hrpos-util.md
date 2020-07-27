@@ -22,7 +22,6 @@ House AWS, low level helpers
     └── twilio
 ```
 
-
 ### db
 Handles DB access
 | Dependent Project  | Replaced  |
@@ -60,4 +59,9 @@ Usage:
 ```
 import * as HTTP from 'hrpos-util/http';
 import { basicRequest } from 'hrpos-util/http';
+```
+
+## Tools
+```
+depcruise --config .dependency-cruiser.js mb-ops/events/
 ```
