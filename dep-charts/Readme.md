@@ -16,18 +16,55 @@ Projects are sorted from top to botttom based on ease of breaking dependencies.
 ## central-api
 ![Alt text](./central-api/high-level-dependency-graph.svg)
 
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `mb-public-api`  | :ballot_box_with_check:  |
+
+
 ## mb-ops
 ![Alt text](./mb-ops/high-level-dependency-graph.svg)
+
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `mb-public-api`  | :ballot_box_with_check:  |
+| `mb-lambda-shared`  | :ballot_box_with_check:  |
+| `models`  | :ballot_box_with_check:  |
+
 
 ## pay-api
 ![Alt text](./pay-api/high-level-dependency-graph.svg)
 
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `serverless-helpers`  | :ballot_box_with_check:  |
+| `mb-lambda-shared`  | :ballot_box_with_check:  |
+| `models`  | :ballot_box_with_check:  |
+
 ## mb-public-api
 ![Alt text](./mb-public-api/high-level-dependency-graph.svg)
+
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `mb-lambda-shared`  | :ballot_box_with_check:  |
+| `models`  | :ballot_box_with_check:  |
+| `online-order`  | :ballot_box_with_check:  |
 
 
 ## consumer-api
 ![Alt text](./consumer-api/high-level-dependency-graph.svg)
 
+
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `mb-lambda-shared`  | :ballot_box_with_check:  |
+| `models`  | :ballot_box_with_check:  |
+| `online-order`  | :ballot_box_with_check:  |
+
 ## online-order
 ![Alt text](./online-order/high-level-dependency-graph.svg)
+
+
+| Project Dependency  | Complete |
+| ------------- | ------------- |
+| `mb-lambda-shared`  | :ballot_box_with_check:  |
+| `models`  | :ballot_box_with_check:  |
