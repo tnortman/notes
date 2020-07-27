@@ -1,6 +1,6 @@
 # High Level Dependency Graphs
 
-The following are high level dependency graphs. Each node represents usage of some files in that folder. For example, `central-api` has a dependency on `mb-public-api`. `central-api` uses some files from the `mb-public-api/db` path. In order to break the dependency of `mb-public-api`, for `central-api` we would need to move `db` functionality into a shareable package.
+The following are high level dependency graphs. Each node represents usage of some files in that folder. For example, `central-api` has a dependency on `mb-public-api`. `central-api` uses some files from the `mb-public-api/db` path. In order to break the `central-api`'s dependency on `mb-public-api`, we need to move `db` functionality into a shareable package. Then, have both `central-api` and `mb-public-api` use that shareable package. 
 
 
 Steps to breaking up project dependencies:
