@@ -21,3 +21,29 @@ House AWS, low level helpers
     └── http
     └── twilio
 ```
+
+
+### db
+Handles DB access
+| Dependent Project  | Replaced  |
+| ------------- | ------------- |
+| `mb-public-api`  | :white_check_mark:  |
+| `central-api`  | :white_check_mark:  |
+| `mb-ops`  | :white_check_mark:  |
+
+### redis
+Handles Redis access
+| Dependent Project  | Replaced  |
+| ------------- | ------------- |
+| `mb-public-api`  | :white_check_mark:  |
+| `mb-ops`  | :white_check_mark:  |
+
+
+### http
+Handles http requests
+| Dependent Project  | Replaced  |
+| ------------- | ------------- |
+| `mb-ops`  | :white_check_mark:  |
+| `mb-public-api`  | :white_check_mark:  |
+| `central-api-broker`  | :white_check_mark:  |
+
