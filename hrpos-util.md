@@ -31,6 +31,11 @@ Handles DB access
 | `central-api`  | :white_check_mark:  |
 | `mb-ops`  | :white_check_mark:  |
 
+Usage:
+```
+import DB from 'hrpos-util/db';
+```
+
 ### redis
 Handles Redis access
 | Dependent Project  | Replaced  |
@@ -38,6 +43,10 @@ Handles Redis access
 | `mb-public-api`  | :white_check_mark:  |
 | `mb-ops`  | :white_check_mark:  |
 
+Usage:
+```
+import * as Redis from 'hrpos-util/redis';
+```
 
 ### http
 Handles http requests
@@ -47,3 +56,8 @@ Handles http requests
 | `mb-public-api`  | :white_check_mark:  |
 | `central-api-broker`  | :white_check_mark:  |
 
+Usage:
+```
+import * as HTTP from 'hrpos-util/http';
+import { basicRequest } from 'hrpos-util/http';
+```
