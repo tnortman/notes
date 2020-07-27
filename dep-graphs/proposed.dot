@@ -1,5 +1,5 @@
 digraph G {
-    rankdir="LR"
+    rankdir="TD"
 
     "GuestApp" -> { "hrpos-models" "shared" }
     "Kiosk" -> { "hrpos-models" "shared" }
@@ -10,15 +10,13 @@ digraph G {
 
     "shared" -> "hrpos-models"
 
-    "consumer-api" -> { "hrpos-models" "hrpos-util" }
-    "online-order-api" -> { "hrpos-models" "hrpos-util" }
-    "pay-api" -> { "hrpos-models" "hrpos-util" }
-    "mb-ops" -> { "hrpos-models" "hrpos-util" }
-    "mb-public-api" -> { "hrpos-models" "hrpos-util" }
+    "consumer-api" -> { "hrpos-models" "hrpos-util" "hrpos-lib" }
+    "online-order-api" -> { "hrpos-models" "hrpos-util" "hrpos-lib" }
+    "pay-api" -> { "hrpos-models" "hrpos-util" "hrpos-lib" }
+    "mb-ops" -> { "hrpos-models" "hrpos-util" "hrpos-lib" }
+    "mb-public-api" -> { "hrpos-models" "hrpos-util" "hrpos-lib" }
     
-    "central-api" -> "hrpos-util"
-
-    "hrpos-util"
+    "central-api" -> {"hrpos-util"}
 
     "central-api-broker"
 
@@ -43,5 +41,10 @@ digraph G {
         "online_ordering"
         "pay"
         "shared"
+    }
+
+    subgraph cluster_util {
+        rank="same"
+        "hrpos-lib" -> {"hrpos-util" "hrpos-models"}
     }
 }
