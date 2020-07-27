@@ -15,7 +15,7 @@ Allow time to restructure code architecture and dockerize.
     - Move common functionality into new repos: 
         - [`hrpos-models`](hrpos-models.md)
             - Houses POS models & Constants
-        - [`hrpos-utils`](hrpos-utils.md)
+        - [`hrpos-utils`](hrpos-util.md)
             - Houses AWS logic (db, s3, redis) & generic utils
         - [`hrpos-lib`](hrpos-lib.md)
             - Houses shared lib functionality

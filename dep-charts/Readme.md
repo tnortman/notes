@@ -6,9 +6,9 @@ The following are high level dependency graphs. Each node represents usage of so
 Steps to breaking up project dependencies:
 
 1. **Find** inter-project dependencies :white_check_mark:
-3. **Determine** where functionality belongs `hrpos-utils`, `hrpos-models`, or `hrpos-lib`
+3. **Determine** where functionality belongs [`hrpos-utils`](../hrpos-util.md), [`hrpos-models`](../hrpos-models.md), or [`hrpos-lib`](../hrpos-lib.md)
 3. **Move** shared dependency
-4. **Remove** from external-dependency (`hrpos-utils`, `hrpos-models`, or `hrpos-lib`)
+4. **Remove** from external-dependency 
 5. **Link** new dependency
 
 Projects are sorted from top to botttom based on ease of breaking dependencies.
