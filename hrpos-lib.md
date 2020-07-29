@@ -14,16 +14,10 @@ hrpos-lib
 ```
 
 
-### MBCustomError
+### HeartlandAPI
 
-| Dependent Project  | Replaced  |
-| ------------- | ------------- |
-| `mb-public-api`  | :white_check_mark:  |
-| `central-api`  | :white_check_mark:  |
-| `mb-ops`  | :white_check_mark:  |
-| `lambda`  | :ballot_box_with_check:  |
-
-Usage:
-```
-import { HeartlandAPIFactory } from 'hrpos-lib/HeartlandAPI';
-```
+| Dependent Project    | Replaced                |
+| -------------------- | ----------------------- |
+| `mb-public-api`      | :white_check_mark:      |
+| `central-api`        | :white_check_mark:      |
+| `central-api-broker` | :ballot_box_with_check: |

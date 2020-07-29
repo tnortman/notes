@@ -23,43 +23,39 @@ House AWS, low level helpers
 ```
 
 ### db
-Handles DB access
-| Dependent Project  | Replaced  |
-| ------------- | ------------- |
-| `mb-public-api`  | :white_check_mark:  |
-| `central-api`  | :white_check_mark:  |
-| `mb-ops`  | :white_check_mark:  |
 
-Usage:
-```
-import DB from 'hrpos-util/db';
-```
+Handles DB access
+| Dependent Project | Replaced |
+| ------------- | ------------- |
+| `mb-public-api` | :white_check_mark: |
+| `central-api` | :white_check_mark: |
+| `mb-ops` | :white_check_mark: |
+| `lambda/projects/online-order` | :ballot_box_with_check: |
+| `lambda/projects/consumer` | :ballot_box_with_check: |
+| `lambda/projects/pay` | :ballot_box_with_check: |
 
 ### redis
-Handles Redis access
-| Dependent Project  | Replaced  |
-| ------------- | ------------- |
-| `mb-public-api`  | :white_check_mark:  |
-| `mb-ops`  | :white_check_mark:  |
 
-Usage:
-```
-import * as Redis from 'hrpos-util/redis';
-```
+Handles Redis access
+| Dependent Project | Replaced |
+| ------------- | ------------- |
+| `mb-public-api` | :white_check_mark: |
+| `mb-ops` | :white_check_mark: |
+| `lambda/projects/online-order` | :ballot_box_with_check: |
+| `lambda/projects/consumer` | :ballot_box_with_check: |
+| `lambda/projects/pay` | :ballot_box_with_check: |
 
 ### http
-Handles http requests
-| Dependent Project  | Replaced  |
-| ------------- | ------------- |
-| `mb-ops`  | :white_check_mark:  |
-| `mb-public-api`  | :white_check_mark:  |
-| `central-api-broker`  | :white_check_mark:  |
 
-Usage:
-```
-import * as HTTP from 'hrpos-util/http';
-import { basicRequest } from 'hrpos-util/http';
-```
+Handles http requests
+| Dependent Project | Replaced |
+| ------------- | ------------- |
+| `mb-ops` | :white_check_mark: |
+| `mb-public-api` | :white_check_mark: |
+| `central-api-broker` | :white_check_mark: |
+| `lambda/projects/online-order` | :ballot_box_with_check: |
+| `lambda/projects/consumer` | :ballot_box_with_check: |
+| `lambda/projects/pay` | :ballot_box_with_check: |
 
 ## Tools
 ```

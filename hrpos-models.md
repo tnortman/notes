@@ -13,14 +13,10 @@ House Models & Constants
 
 ### MBCustomError
 
-| Dependent Project  | Replaced  |
-| ------------- | ------------- |
-| `mb-public-api`  | :white_check_mark:  |
-| `central-api`  | :white_check_mark:  |
-| `mb-ops`  | :white_check_mark:  |
-| `lambda`  | :ballot_box_with_check:  |
-
-Usage:
-```
-import MBCustomError from 'hrpos-util/errors';
-```
+| Dependent Project              | Replaced                |
+| ------------------------------ | ----------------------- |
+| `mb-public-api`                | :white_check_mark:      |
+| `central-api`                  | :white_check_mark:      |
+| `lambda/projects/online-order` | :ballot_box_with_check: |
+| `lambda/projects/consumer`     | :ballot_box_with_check: |
+| `lambda/projects/pay`          | :ballot_box_with_check: |
