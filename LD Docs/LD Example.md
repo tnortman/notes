@@ -158,7 +158,7 @@ function MyComponent() {
 
 # iOS
 
-###Life Cycle
+### Life Cycle
 
 LaunchDarkly LD on user login, and will reconnect anytime the AppDelegate's appDataLoaded method is loaded, and quit when the app terminates.
 Anytime the LaunchDarkly server has a modification that effects a flag that change is immediatly sent to the iOS device.
@@ -224,7 +224,7 @@ Here is the code snippet for LD Closing on app termination:pos/pos/AppDelegate.m
 
 ```
 
-###Tasks
+### Tasks
 
 **Task**: Conditionally show `Waitlist` setting based on `waitlist-access`
 
