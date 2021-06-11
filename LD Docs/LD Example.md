@@ -5,6 +5,7 @@
 In the following examples, we will show the work done for:
 - [HR-2667](https://heartlandpos.atlassian.net/browse/HR-2667) which entailed wrapping Promotions features using the [promo-access](https://app.launchdarkly.com/heartland-restaurant/test/features/promo-access/targeting) flag in LD
 - [HR-2666](https://heartlandpos.atlassian.net/browse/HR-2666) which entailed restricting app access using the [kiosk-access](https://app.launchdarkly.com/heartland-restaurant/test/features/kiosk-access/targeting) and [guest-access](https://app.launchdarkly.com/heartland-restaurant/test/features/guest-access/targeting) flags in LD
+- [HR-2668](https://heartlandpos.atlassian.net/browse/HR-2668) which entailed wrapping Wait-list feature using the [waitlist-access](https://app.launchdarkly.com/heartland-restaurant/test/features/waitlist-access/targeting) flag in LD
 
 
 > :warning: **PLEASE NOTE** :warning: 
@@ -15,6 +16,7 @@ Frontend
 - [Angular](#angular) [web_backend] `AdminPortal`
 - [React](#react) [serverless] `OnlineOrdering`
 - [React Native](#react-native) [serverless] `GuetApp, Kiosk, CustomerDisplay`
+- [iOS](#ios) [mobile] POS
 
 Backend
 - [PHP](#php) [web_backend] `PHP Api`
@@ -153,6 +155,137 @@ function MyComponent() {
 [LD React Native SDK](https://docs.launchdarkly.com/sdk/client-side/react/react-native)
 
 [LD React Native API DOCS](https://launchdarkly.github.io/react-native-client-sdk/)
+
+# iOS
+
+###Life Cycle
+
+LaunchDarkly LD on user login, and will reconnect anytime the AppDelegate's appDataLoaded method is loaded, and quit when the app terminates.
+Anytime the LaunchDarkly server has a modification that effects a flag that change is immediatly sent to the iOS device.
+
+**Start Launch Darkly** in the AppDelegate's appDataLoaded method.
+The appDataLoaded will load the user with user data from our server, and connect it with LD.  You can not pull the user's info directly from LD
+Add any custom attributes here that need to be used for trigger rules.
+The LD environment is also selected here coorilating to the pos environment.
+
+Here is the code snippet for LD Loading:pos/pos/AppDelegate.m
+```
+- (void)appDataLoaded {
+	...
+    [self setupLaunchDarkly];
+}
+
+- (void)setupLaunchDarkly {
+    [[LDClient get] close];//end any previous connections
+    mbEnvironment currentEnvironment = [[NSUserDefaults standardUserDefaults] integerForKey:@"current_environment"];
+    LDConfig *config;
+    switch (currentEnvironment) {
+        case mbEnvironmentProd:
+            config = [[LDConfig alloc] initWithMobileKey:@"mob-ec7f9b98-802e-4747-9c45-9daa6b189d4d"];
+            break;
+        case mbEnvironmentTest:
+            config = [[LDConfig alloc] initWithMobileKey:@"mob-208edbdf-596d-4d4c-89e2-a8f30589d90b"];
+            break;
+        case mbEnvironmentCert:
+            config = [[LDConfig alloc] initWithMobileKey:@"mob-0d1be1f8-b4c8-4e79-8eac-e00d9ddd831f"];
+            break;
+    }
+
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSString *accountNum = [[MBContent sharedInstance] accountNumber];
+    [dict setValue:[[MBContent sharedInstance] setupLocation].name forKey:@"Name"];
+    [dict setValue:[NSNumber numberWithInt:[[MBContent sharedInstance] locationId]] forKey:@"LocationID"];
+    [dict setValue:accountNum forKey:@"AccountNumber"];
+    [dict setValue:[NSNumber numberWithInt:[[MBContent sharedInstance] ldAccountId]] forKey:@"AccountID"];
+    [dict setValue:[NSNumber numberWithInt:[[MBContent sharedInstance] pricingTierId]] forKey:@"PricingTierID"];
+    [dict setValue:[NSNumber numberWithBool:[[MBContent sharedInstance] demoMode]] forKey:@"IsDemo"];
+    [dict setValue:[NSNumber numberWithInt:[[MBContent sharedInstance] hrpos]] forKey:@"HRPOS"];
+    LDUser *user = [[LDUser alloc] initWithKey:[[MBContent sharedInstance] locationAccountNumber]];
+    user.custom = dict;
+    user.name = [[MBContent sharedInstance] setupLocation].name;
+    [LDClient startWithConfiguration:config user:user completion:^{
+        // good place to test flag logic changes of Launch Darkly Portal
+        NSString *ldLogMsg = [[NSString alloc] initWithFormat: @"LaunchDarkly loaded with name:%@, key:%@, customAttributes:%@, flags:%@", user.name, user.key, user.custom, [LDClient get].allFlags];
+//        NSLog(@"%@",ldLogMsg);
+        [[MBLogger sharedInstance] sysLog:ldLogMsg fromClass:[self class] calledBy:_cmd];
+    }];
+}
+
+```
+
+Here is the code snippet for LD Closing on app termination:pos/pos/AppDelegate.m
+```
+- (void)applicationWillTerminate:(UIApplication *)application
+	...
+    [[LDClient get] close];//quit LaunchDarkly conneciton
+
+        return;
+}
+
+```
+
+###Tasks
+
+**Task**: Conditionally show `Waitlist` setting based on `waitlist-access`
+
+<img src="./imgs/iOSSettings.png" width=100% height=100%>
+
+The hiding and showing of rows in General Settings has changed from pure table section and row values to a double array of enums
+Here is the code snippet for Waitlist setting:pos/pos/GeneralSettingsView.m
+```
+- (id)initWithFrame:(CGRect)frame
+{
+	...
+	NSMutableArray *rows = [[NSMutableArray alloc] init];
+	...
+	NSString *ldLogMsg = [[NSString alloc] initWithFormat: @"LaunchDarkly waitlist-access flag checked with flags:%@, isOnline:%d, isInitialized:%d", [LDClient get].allFlags, [LDClient get].isOnline, [LDClient get].isInitialized];
+//        NSLog(@"%@",ldLogMsg);
+    [[MBLogger sharedInstance] sysLog:ldLogMsg fromClass:[self class] calledBy:_cmd];
+
+    if([[LDClient get] boolVariationForKey:@"waitlist-access" defaultValue:NO]) {
+        [rows addObject:@(waitlist)];
+    }
+    ...
+    return self;
+}
+```
+
+**Task**: Conditionally show wait-list panel and wait-list logic based on `waitlist-access`
+
+<img src="./imgs/iOSWaitlist.png" width=100% height=100%>
+
+Here is the code snippet for enabling or disabling Waitlist for the app in general:/pos/pos/MBContent.m
+```
+- (void)setCurrentStaffMember:(Staff *)currentStaffMember {
+    _currentStaffMember = currentStaffMember;
+    ...
+        NSString *ldLogMsg = [[NSString alloc] initWithFormat: @"LaunchDarkly flags loaded to settings with flags:%@, isOnline:%d, isInitialized:%d", [LDClient get].allFlags, [LDClient get].isOnline, [LDClient get].isInitialized];
+//            NSLog(@"%@",ldLogMsg);
+        [[MBLogger sharedInstance] sysLog:ldLogMsg fromClass:[self class] calledBy:_cmd];
+        
+        currentStaffMember.waitlistEnabled = ([[LDClient get] boolVariationForKey:@"waitlist-access" defaultValue:NO] && [settings objectForKey:@"userWaitlistEnabled"] != nil) ? [[settings objectForKey:@"userWaitlistEnabled"] boolValue] : NO;
+    ...
+}
+```
+
+Here is the code snippet for enabling or disabling Waitlist specifically for the room:/pos/pos/RoomsViewController.m
+```
+- (void)viewDidAppear:(BOOL)animated {
+	...
+    NSString *ldLogMsg = [[NSString alloc] initWithFormat: @"LaunchDarkly waitlist-access flag checked in RoomsViewController with flags:%@, isOnline:%d, isInitialized:%d", [LDClient get].allFlags, [LDClient get].isOnline, [LDClient get].isInitialized];
+//        NSLog(@"%@",ldLogMsg);
+    [[MBLogger sharedInstance] sysLog:ldLogMsg fromClass:[self class] calledBy:_cmd];
+
+    _waitListEnabled = [[MBContent sharedInstance] currentStaffMember].waitlistEnabled && [[LDClient get] boolVariationForKey:@"waitlist-access" defaultValue:NO];
+    ...
+}
+``` 
+
+### LD Docs
+
+[LD iOS SDK](https://docs.launchdarkly.com/sdk/client-side/ios/)
+
+[LD iOS API DOCS](https://launchdarkly.github.io/ios-client-sdk/)
 
 # PHP
 
